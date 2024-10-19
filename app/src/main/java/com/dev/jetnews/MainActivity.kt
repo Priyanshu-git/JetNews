@@ -10,7 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -100,27 +100,28 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-}
 
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun MainToolbar() {
-    TopAppBar(
-        title = { Text(stringResource(id = R.string.app_name)) },
-        actions = {
-            IconButton(onClick = { /* Handle search icon press */ }) {
-                Icon(
-                    Icons.Filled.Search,
-                    contentDescription = "Search"
-                )
-            }
-        },
-        colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer,
-            titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer,
-            navigationIconContentColor = MaterialTheme.colorScheme.onPrimaryContainer,
-            actionIconContentColor = MaterialTheme.colorScheme.onPrimaryContainer
+    @OptIn(ExperimentalMaterial3Api::class)
+    @Composable
+    fun MainToolbar() {
+        TopAppBar(
+            title = { Text(stringResource(id = R.string.app_name)) },
+            actions = {
+                IconButton(onClick = { newsViewModel.fetchNews("Sports") }) {
+                    Icon(
+                        Icons.Filled.Refresh,
+                        contentDescription = "Refresh"
+                    )
+                }
+            },
+            colors = TopAppBarDefaults.topAppBarColors(
+                containerColor = MaterialTheme.colorScheme.primaryContainer,
+                titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                navigationIconContentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                actionIconContentColor = MaterialTheme.colorScheme.onPrimaryContainer
+            )
         )
-    )
+    }
 }
+
+

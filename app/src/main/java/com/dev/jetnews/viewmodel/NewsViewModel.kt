@@ -2,10 +2,10 @@ package com.dev.jetnews.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dev.jetnews.BuildConfig
 import com.dev.jetnews.model.NewsResponse
+import com.dev.jetnews.repository.NewsRepository
 import com.dev.jetnews.repository.NewsResource
-import com.dev.jetnews.repository.retrofit.RetrofitInstance
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -13,20 +13,18 @@ import kotlinx.coroutines.launch
 class NewsViewModel : ViewModel() {
     private val _news = MutableStateFlow<NewsResource<NewsResponse>>(NewsResource.Loading())
     val news: StateFlow<NewsResource<NewsResponse>> get() = _news
+    val repository = NewsRepository
 
     init {
         fetchNews("Sports")
     }
 
-    private fun fetchNews(query: String, pageSize: Int = 10) {
-        viewModelScope.launch {
+    fun fetchNews(query: String, pageSize: Int = 10) {
+        viewModelScope.launch(Dispatchers.IO) {
             _news.value = NewsResource.Loading() // Set loading state
             try {
-                val response = RetrofitInstance.api.getNews(
-                    query = query,
-                    apiKey = BuildConfig.NEWS_API_KEY,
-                    pageSize = pageSize
-                )
+                val response = repository.getNews(query = query, pageSize = pageSize)
+
                 if (response.isSuccessful) {
                     response.body()?.let {
                         if (it.status == "ok") {
