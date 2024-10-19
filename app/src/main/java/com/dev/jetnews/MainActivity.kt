@@ -20,7 +20,6 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import com.dev.jetnews.ui.theme.JetNewsTheme
 
 class MainActivity : ComponentActivity() {
@@ -68,12 +67,4 @@ fun MainToolbar() {
             actionIconContentColor = MaterialTheme.colorScheme.onPrimaryContainer
         )
     )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    JetNewsTheme {
-        Greeting("Android")
-    }
 }
