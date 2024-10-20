@@ -15,10 +15,6 @@ class NewsViewModel : ViewModel() {
     val news: StateFlow<NewsResource<NewsResponse>> get() = _news
     val repository = NewsRepository
 
-    init {
-        fetchNews("Sports")
-    }
-
     fun fetchNews(query: String, pageSize: Int = 10) {
         viewModelScope.launch(Dispatchers.IO) {
             _news.value = NewsResource.Loading() // Set loading state
