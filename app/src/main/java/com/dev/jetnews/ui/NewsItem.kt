@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -33,19 +32,6 @@ import java.text.SimpleDateFormat
 import java.util.Locale
 import java.util.TimeZone
 
-
-@Composable
-fun NewsList(newsList: List<ArticlesItem?>) {
-    LazyColumn(
-        modifier = Modifier
-            .padding(horizontal = 4.dp, vertical = 2.dp)
-            .background(MaterialTheme.colorScheme.background)
-    ) {
-        items(newsList.size) { index ->
-            NewsCard(news = newsList[index]!!)
-        }
-    }
-}
 
 @Composable
 fun NewsCard(news: ArticlesItem) {

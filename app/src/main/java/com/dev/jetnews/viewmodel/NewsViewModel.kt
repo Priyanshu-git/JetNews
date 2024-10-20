@@ -15,11 +15,11 @@ class NewsViewModel : ViewModel() {
     val news: StateFlow<NewsResource<NewsResponse>> get() = _news
     val repository = NewsRepository
 
-    fun fetchNews(query: String, pageSize: Int = 10) {
+    fun fetchNews(query: String = currentQuery, page: Int = currentPage) {
         viewModelScope.launch(Dispatchers.IO) {
             _news.value = NewsResource.Loading() // Set loading state
             try {
-                val response = repository.getNews(query = query, pageSize = pageSize)
+                val response = repository.getNews(query = query, page = page)
 
                 if (response.isSuccessful) {
                     response.body()?.let {
@@ -39,4 +39,17 @@ class NewsViewModel : ViewModel() {
             }
         }
     }
+
+    var currentPage = 1
+        set(value) {
+            field = value
+            fetchNews(query = "example", page = value)
+        }
+
+    var currentQuery = ""
+        set(value) {
+            field = value
+            currentPage = 1
+            fetchNews(query = value, page = 1)
+        }
 }
