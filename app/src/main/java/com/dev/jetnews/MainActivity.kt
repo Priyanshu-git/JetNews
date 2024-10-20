@@ -8,7 +8,6 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.CircularProgressIndicator
@@ -26,8 +25,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.dev.jetnews.model.ArticlesItem
 import com.dev.jetnews.repository.NewsResource
+import com.dev.jetnews.ui.NewsList
 import com.dev.jetnews.ui.theme.JetNewsTheme
 import com.dev.jetnews.viewmodel.NewsViewModel
 
@@ -83,20 +82,6 @@ class MainActivity : ComponentActivity() {
                             .wrapContentSize()
                     )
                 }
-            }
-        }
-    }
-
-    @Composable
-    private fun NewsList(newsList: List<ArticlesItem?>) {
-        LazyColumn(
-            modifier = Modifier.padding(16.dp)
-        ) {
-            items(newsList.size) { index ->
-                Text(
-                    text = "${newsList[index]?.title}",
-                    modifier = Modifier.padding(vertical = 8.dp)
-                )
             }
         }
     }
