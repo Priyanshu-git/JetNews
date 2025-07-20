@@ -26,11 +26,14 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.dev.jetnews.R
+import com.dev.jetnews.WebActivity
 import com.dev.jetnews.model.ArticlesItem
 import com.dev.jetnews.model.Source
 import java.text.SimpleDateFormat
 import java.util.Locale
 import java.util.TimeZone
+import kotlin.jvm.java
+import androidx.core.net.toUri
 
 
 @Composable

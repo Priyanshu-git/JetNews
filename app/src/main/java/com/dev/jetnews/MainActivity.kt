@@ -29,7 +29,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        newsViewModel.fetchNews(baseContext.getString(R.string.default_search))
+        newsViewModel.fetchNews(query = getString(R.string.default_search))
         setContent {
             JetNewsTheme {
                 Scaffold(

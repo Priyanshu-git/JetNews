@@ -107,7 +107,8 @@ fun MainToolbar(newsViewModel: NewsViewModel) {
                     Icon(Icons.Filled.Search, contentDescription = "Expand Search")
                 }
                 IconButton(onClick = {
-                    newsViewModel.fetchNews(searchQuery.text.ifEmpty { defaultSearch })
+                    // REFRESH BUTTON
+                    newsViewModel.refresh()
                     focusManager.clearFocus()
                 }) {
                     Icon(Icons.Filled.Refresh, contentDescription = "Refresh")
