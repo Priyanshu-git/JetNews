@@ -41,9 +41,10 @@ fun NewsCard(news: ArticlesItem) {
             .padding(start = 0.dp, end = 0.dp, top = 8.dp, bottom = 0.dp)
             .fillMaxWidth()
             .clickable(true, onClick = {
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(news.url))
+                val intent = Intent(context, WebActivity::class.java)
+                intent.putExtra("url", "${news.url?.toUri()}")
                 context.startActivity(intent)
-            }),  // Click handling
+            }),
         elevation = CardDefaults.cardElevation(8.dp),
         colors = CardDefaults.cardColors(MaterialTheme.colorScheme.surface),
 
@@ -83,7 +84,7 @@ fun NewsCard(news: ArticlesItem) {
                         MaterialTheme.colorScheme.errorContainer,
                         shape = RoundedCornerShape(25)
                     )
-                    .padding(horizontal = 4.dp, vertical = 2.dp)
+                    .padding(horizontal = 8.dp, vertical = 4.dp)
             )
 
             Text(
