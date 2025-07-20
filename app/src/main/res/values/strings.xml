@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">JetNews</string>
-    <string name="default_search">Environment</string>
+    <string name="default_search">Politics</string>
 
 </resources>
