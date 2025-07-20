@@ -1,6 +1,5 @@
 package com.dev.jetnews.viewmodel
 
-import android.R.attr.value
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dev.jetnews.model.NewsResponse
@@ -15,6 +14,13 @@ class NewsViewModel : ViewModel() {
     private val _news = MutableStateFlow<NewsResource<NewsResponse>>(NewsResource.Loading())
     val news: StateFlow<NewsResource<NewsResponse>> get() = _news
     val repository = NewsRepository
+
+    private val _appBarTitle = MutableStateFlow("")
+    val appBarTitle: StateFlow<String> get() = _appBarTitle
+    fun setAppBarTitle(title: String) {
+        _appBarTitle.value = title.trim()
+    }
+
     private var endOfList = false
 
     enum class NewsMode { TOP_HEADLINES, SEARCH }

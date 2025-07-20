@@ -22,6 +22,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -39,7 +40,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dev.jetnews.R
 import com.dev.jetnews.viewmodel.NewsViewModel
-import kotlin.text.ifEmpty
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -47,8 +47,18 @@ fun MainToolbar(newsViewModel: NewsViewModel) {
     var searchQuery by remember { mutableStateOf(TextFieldValue("")) }
     var isSearchExpanded by remember { mutableStateOf(false) }
     val focusManager = LocalFocusManager.current
-    val defaultSearch = stringResource(id = R.string.default_search)
     val focusRequester = remember { FocusRequester() }
+    val title = newsViewModel.appBarTitle.collectAsState()
+
+    val performSearch: () -> Unit = {
+        if (searchQuery.text.isNotEmpty()) {
+            newsViewModel.setAppBarTitle(searchQuery.text)
+            newsViewModel.fetchNews(searchQuery.text)
+        }
+        focusManager.clearFocus()
+        isSearchExpanded = false
+    }
+
 
     TopAppBar(
         title = {
@@ -80,26 +90,17 @@ fun MainToolbar(newsViewModel: NewsViewModel) {
                             .fillMaxWidth()
                             .focusRequester(focusRequester),
                         keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Search),
-                        keyboardActions = KeyboardActions(
-                            onSearch = {
-                                newsViewModel.fetchNews(searchQuery.text)
-                                focusManager.clearFocus()
-                            }
-                        ),
+                        keyboardActions = KeyboardActions(onSearch = { performSearch() }),
                         singleLine = true
                     )
                 }
             } else {
-                Text(stringResource(id = R.string.app_name))
+                Text(if(title.value.isNotEmpty()) title.value else stringResource(R.string.app_name))
             }
         },
         actions = {
             if (isSearchExpanded) {
-                IconButton(onClick = {
-                    newsViewModel.fetchNews(searchQuery.text)
-                    focusManager.clearFocus()
-                    isSearchExpanded = false
-                }) {
+                IconButton(onClick = performSearch) {
                     Icon(Icons.Filled.Search, contentDescription = "Search")
                 }
             } else {
