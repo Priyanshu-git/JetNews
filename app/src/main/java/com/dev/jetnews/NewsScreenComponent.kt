@@ -24,6 +24,7 @@ import com.dev.jetnews.viewmodel.NewsViewModel
 fun NewsScreenComponent(newsViewModel: NewsViewModel) {
     LaunchedEffect(Unit) {
         newsViewModel.fetchNews()
+        newsViewModel.setAppBarTitle(newsViewModel.currentQuery)
     }
 
     JetNewsTheme {
