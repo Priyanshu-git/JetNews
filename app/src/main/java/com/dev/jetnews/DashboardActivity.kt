@@ -77,7 +77,7 @@ JetNewsTheme {
                 columns = GridCells.Fixed(2),
                 horizontalArrangement = Arrangement.spacedBy(16.dp),
                 verticalArrangement = Arrangement.spacedBy(16.dp),
-                modifier = Modifier.padding(horizontal = 16.dp)
+                modifier = Modifier.padding(16.dp)
             ) {
                 val tiles = getDashboardTiles()
                 items(count = tiles.size) { index ->
@@ -93,7 +93,7 @@ JetNewsTheme {
                 }
             }
 
-            Spacer(modifier = Modifier.size(32.dp))
+            Spacer(modifier = Modifier.height(32.dp))
 
             Box {
                 Card(
